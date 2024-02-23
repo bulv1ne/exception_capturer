@@ -1,0 +1,37 @@
+[tool.poetry]
+name = "exception-capturer"
+version = "0.1.0"
+description = ""
+authors = ["Niels Lemmens <1936122+bulv1ne@users.noreply.github.com>"]
+license = "MIT"
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.10"
+
+[tool.poetry.group.dev.dependencies]
+pytest = "*"
+black = "*"
+flake8 = "*"
+isort = "*"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.flake8]
+ignore = "E203,E266,E501,W503"
+max-complexity = 10
+exclude = [
+    # No need to traverse our git directory
+   ".git",
+    # There's no value in checking cache directories
+    "__pycache__",
+]
+
+[tool.isort]
+multi_line_output = 3
+include_trailing_comma = true
+force_grid_wrap = 0
+combine_as_imports = true
+line_length = 88
