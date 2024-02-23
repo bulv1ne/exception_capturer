@@ -12,11 +12,7 @@ class ExceptionCapturer(object):
         if exc_val is not None:
             self.captured_exceptions.append(exc_val)
 
-        if self.captured_exceptions:
-            raise ExceptionGroup(
-                "ExceptionCapturer captured multiple exceptions",
-                self.captured_exceptions,
-            )
+        self.raise_exceptions()
         return False
 
     @contextmanager
@@ -25,3 +21,10 @@ class ExceptionCapturer(object):
             yield
         except Exception as e:
             self.captured_exceptions.append(e)
+
+    def raise_exceptions(self):
+        if self.captured_exceptions:
+            raise ExceptionGroup(
+                "ExceptionCapturer captured multiple exceptions",
+                self.captured_exceptions,
+            )
