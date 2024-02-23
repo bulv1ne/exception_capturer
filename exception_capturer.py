@@ -1,4 +1,5 @@
 from contextlib import contextmanager
+from typing import Callable
 
 
 class ExceptionCapturer(object):
@@ -21,6 +22,10 @@ class ExceptionCapturer(object):
             yield
         except Exception as e:
             self.captured_exceptions.append(e)
+
+    def call_function(self, f: Callable, *args, **kwargs):
+        with self.capture():
+            return f(*args, **kwargs)
 
     def raise_exceptions(self):
         if self.captured_exceptions:

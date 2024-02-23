@@ -53,3 +53,17 @@ class ExceptionCapturerTests(unittest.TestCase):
                 "invalid literal for int() with base 10: 'four'",
             ],
         )
+
+    def test_call_function(self):
+        with self.assertRaises(ExceptionGroup) as context:
+            with exception_capturer.ExceptionCapturer() as ec:
+                for value, expected in [("one", None), ("2", 2), ("three", None)]:
+                    self.assertEqual(expected, ec.call_function(int, value))
+
+        self.assertEqualExceptionGroupMessages(
+            context.exception,
+            [
+                "invalid literal for int() with base 10: 'one'",
+                "invalid literal for int() with base 10: 'three'",
+            ],
+        )
